@@ -40,8 +40,7 @@ class Visualizer {
         vector<pair<int, int>> obstacleStack_; // Store obstacle positions
         string clickedButton; // Global clicked button state
         vector<pair<int, int>> clickedCell; // Global clicked cell state
-        //int cellSize_ = 4; // Size of each cell in pixels
-        int cellSize_ = 30; // Size of each cell in pixels
+        int cellSize_ = 6; // Size of each cell in pixels
         unsigned int gridWidth_, gridHeight_;  // Store grid width and height in pixels
         int gridOffsetX_ = 0; // X offset for grid positioning
         int gridOffsetY_ = 0; // Y offset for grid positioning

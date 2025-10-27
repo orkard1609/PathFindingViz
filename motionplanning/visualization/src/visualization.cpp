@@ -589,8 +589,7 @@ void Visualizer::drawControlButton(int x, int y, int width, int height, const st
 // Reset windows to init state
 void Visualizer::resetWindows() {
     // Reset the grid and related variables to initial state
-    //grid_.gridResize(150, 150); // Reset to default size
-    grid_.gridResize(20, 20);
+    grid_.gridResize(100, 100); // Reset to default size
     // Set all cells to EMPTY
     for (int y = 0; y < grid_.getHeight(); ++y) {
         for (int x = 0; x < grid_.getWidth(); ++x) {
@@ -600,8 +599,7 @@ void Visualizer::resetWindows() {
     
     // Then randomly setting obstacles for testing - FOR TESTING ONLY
     srand(static_cast<unsigned int>(time(0)));
-    for (int i = 0; i < 5; ++i) {
-    //for (int i = 0; i < 4000; ++i) {
+    for (int i = 0; i < 2500; ++i) {
         int x = rand() % grid_.getWidth();
         int y = rand() % grid_.getHeight();
         grid_.setCellState(x, y, Grid::OBSTACLE);

@@ -10,6 +10,12 @@
 
 using namespace std;
 
+// Direction definitions for neighbor exploration
+#define UP    pair<int, int>{0, -1}
+#define RIGHT pair<int, int>{1, 0}
+#define DOWN  pair<int, int>{0, 1}
+#define LEFT  pair<int, int>{-1, 0}
+
 class PathFindingAlgorithm {
     private:
         vector<string> algorithms = {"A*", "Dijkstra", "BFS", "DFS", "RRT"}; // List of supported algorithms
@@ -20,6 +26,7 @@ class PathFindingAlgorithm {
         pair<int, int> goalPos_; // Goal position
         vector<pair<int, int>> foundPath_; // Store the found path
         vector<pair<int, int>> visitedNodes_; // Store visited nodes
+        //vector<pair<int, int>> directions_; // Directions for neighbor exploration
     public:
         // Constructor
         PathFindingAlgorithm(Grid& grid, const pair<int, int>& startPos, const pair<int, int>& goalPos, string selectedAlgo) 
@@ -44,6 +51,9 @@ class PathFindingAlgorithm {
         vector<pair<int, int>> getVisitedNodes() const {
             return visitedNodes_;
         };
+
+        // Calculate direction towards goal for neighbor prioritization
+        vector<pair<int, int>> goalDirectionCalc(pair<int, int> start, pair<int, int> goal) const;
 
         // Helper methods, get neighbors of a given cell (x, y)
         vector<pair<int, int>> getNeighbors(int x, int y) const;

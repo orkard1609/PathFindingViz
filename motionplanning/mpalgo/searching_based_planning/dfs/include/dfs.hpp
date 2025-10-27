@@ -9,6 +9,8 @@
 using namespace std;
 
 class DFS : public PathFindingAlgorithm {
+    private:
+        bool goalisFound = false;
     public:
         // Inherit constructor from the base class
         using PathFindingAlgorithm::PathFindingAlgorithm;
@@ -16,6 +18,7 @@ class DFS : public PathFindingAlgorithm {
         // Override the findPath method of the base class
         vector<pair<int, int>> findPath(const vector<vector<int>>& grid, pair<int, int> start, pair<int, int> goal) override;
 
+        // main DFS 
         void dfs(pair<int, int> cur, pair<int, int> goal, 
                  vector<vector<int>>& dist, vector<vector<pair<int, int>>>& parent);
 };
