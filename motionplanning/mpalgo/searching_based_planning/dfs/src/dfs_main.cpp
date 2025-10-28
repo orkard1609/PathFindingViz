@@ -41,19 +41,5 @@ vector<pair<int, int>> DFS::findPath(const vector<vector<int>>& grid, pair<int, 
     pair<int, int> cur = start;
     dfs(cur, goal, dist, parent);
 
-    // If goal is unreachable then there is not path
-    if (dist[goal.first][goal.second] == -1) {
-        return vector<pair<int, int>>(); // return empty path
-    }
-
-    // Trace back the path from goal to start using parent array
-    for (pair<int, int> p = goal; p.first != -1; p = parent[p.first][p.second]) {
-        // Remove start and goal cells out of found path
-        if (p != start && p != goal) {
-            path.push_back(p);
-        }
-    }
-    reverse(path.begin(), path.end()); // Reverse the path to get it from start to goal
-    
-    return path;
+    return path = pathValidation(dist, parent, start, goal);
 }

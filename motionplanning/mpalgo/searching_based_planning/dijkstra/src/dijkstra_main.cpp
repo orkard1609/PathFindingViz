@@ -20,7 +20,7 @@ vector<pair<int, int>> Dijkstra::findPath(const vector<vector<int>>& grid,
     vector<vector<pair<int, int>>> parent(n, vector<pair<int, int>>(m, {-1,-1})); // Store parent to reconstruct path
     vector<vector<bool>> visited(n, vector<bool>(m, false)); // Visited array
     // Initialize distance for start node, unweighted grid so all possible moves will have same cost
-    dist[start.first][start.second] =  grid[start.first][start.second];           
+    dist[start.first][start.second] =  grid[start.first][start.second];
     
     // Priority queue for Dijkstra's algorithm
     priority_queue<Node, vector<Node>, greater<Node>> prioQueue;
@@ -45,7 +45,7 @@ vector<pair<int, int>> Dijkstra::findPath(const vector<vector<int>>& grid,
             int nx = neighbor.first;
             int ny = neighbor.second;
             // Calculate new cost to reach neighbor
-            int newCost = dist[curPos.first][curPos.second] + grid[nx][ny];
+            int newCost = dist[curPos.first][curPos.second] + 1;  // Each step costs 1 as unweighted grid
             // If new cost is lower, update distance and parent, and push to priority queue
             if (newCost < dist[nx][ny]) {
                 // Set current smaller cost as neighbor cost
@@ -56,18 +56,6 @@ vector<pair<int, int>> Dijkstra::findPath(const vector<vector<int>>& grid,
             }
         }
     }
-    // If goal is unreachable then there is not path
-    if (dist[goal.first][goal.second] == -1) {
-        return vector<pair<int, int>>(); // return empty path
-    }
-    // Trace back the path from goal to start using parent array
-    for (pair<int, int> p = goal; p.first != -1; p = parent[p.first][p.second]) {
-        // Remove start and goal cells out of found path
-        if (p != start && p != goal) {
-            path.push_back(p);
-        }
-    }
-    reverse(path.begin(), path.end()); // reverse to get path from start to goal
-    
-    return path;
+
+    return path = pathValidation(dist, parent, start, goal);
 }

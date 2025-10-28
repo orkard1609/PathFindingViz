@@ -62,6 +62,10 @@ class PathFindingAlgorithm {
         virtual vector<pair<int, int>> findPath(const vector<vector<int>>& grid, 
                                                 pair<int, int> start, 
                                                 pair<int, int> goal) = 0;
+
+        // Path validity check
+        vector<pair<int, int>> pathValidation(vector<vector<int>> dist, vector<vector<pair<int, int>>> parent, 
+                                              pair<int, int> start, pair<int, int> goal) const;
 };
 
 #endif // PATHFINDING_MAIN_HPP

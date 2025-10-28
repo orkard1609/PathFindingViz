@@ -4,6 +4,7 @@
 #include <iostream>
 #include <memory>  // For unique_ptr and make_unique
 #include <cmath>
+#include <algorithm>
 #include "grid.hpp"
 #include "pathfinding_main.hpp"
 #include "bfs.hpp"
@@ -97,4 +98,24 @@ vector<pair<int, int>> PathFindingAlgorithm::getNeighbors(int x, int y) const {
         }
     }
     return neighbors;
+}
+
+vector<pair<int, int>> PathFindingAlgorithm::pathValidation(vector<vector<int>> dist, vector<vector<pair<int, int>>> parent,
+                                                            pair<int, int> start, pair<int, int> goal) const {
+    vector<pair<int, int>> path;
+    // If goal is unreachable then there is not path
+    if (dist[goal.first][goal.second] == -1) {
+        return vector<pair<int, int>>(); // return empty path
+    }   
+
+    // Trace back the path from goal to start using parent array
+    for (pair<int, int> p = goal; p.first != -1; p = parent[p.first][p.second]) {
+        // Remove start and goal cells out of found path
+        if (p != start && p != goal) {
+            path.push_back(p);
+        }
+    }
+    reverse(path.begin(), path.end()); // Reverse the path to get it from start to goal
+    
+    return path;
 }
