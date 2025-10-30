@@ -31,6 +31,7 @@ add_executable(MotionPlanning
     mpalgo/searching_based_planning/bfs/src/bfs_main.cpp
     mpalgo/searching_based_planning/dfs/src/dfs_main.cpp
     mpalgo/searching_based_planning/dijkstra/src/dijkstra_main.cpp
+    mpalgo/searching_based_planning/astar/src/astar_main.cpp
 )
 
 # Add include directories
@@ -41,6 +42,7 @@ target_include_directories(MotionPlanning PRIVATE
     mpalgo/searching_based_planning/bfs/include
     mpalgo/searching_based_planning/dfs/include
     mpalgo/searching_based_planning/dijkstra/include
+    mpalgo/searching_based_planning/astar/include
 )
 
 # Link SFML static libraries - use -s.a versions if available

@@ -8,7 +8,7 @@ using namespace std;
 
 int main() {
     cout << "Starting Motion Planning Visualizer..." << endl;
-    Grid grid(100, 100);
+    Grid grid(20, 20);
     Obstacle obstacle;
     Visualizer visualizer(grid, obstacle);
     while (visualizer.windowIsOpen()) {

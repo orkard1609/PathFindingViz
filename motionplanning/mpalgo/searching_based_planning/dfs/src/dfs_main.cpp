@@ -30,7 +30,6 @@ void DFS::dfs(pair<int, int> cur, pair<int, int> goal,
 }
 
 vector<pair<int, int>> DFS::findPath(const vector<vector<int>>& grid, pair<int, int> start, pair<int, int> goal) {
-    vector<pair<int, int>> path;
     int n = grid.size(), m = grid[0].size();
 
     vector<vector<int>> dist(n, vector<int>(m, -1)); // Distance array from start to each cell
@@ -41,5 +40,5 @@ vector<pair<int, int>> DFS::findPath(const vector<vector<int>>& grid, pair<int, 
     pair<int, int> cur = start;
     dfs(cur, goal, dist, parent);
 
-    return path = pathValidation(dist, parent, start, goal);
+    return pathValidation(dist, parent, start, goal);
 }

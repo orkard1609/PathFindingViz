@@ -12,7 +12,6 @@ using namespace std;
 vector<pair<int, int>> Dijkstra::findPath(const vector<vector<int>>& grid, 
                                             pair<int, int> start, 
                                             pair<int, int> goal) {
-    vector<pair<int, int>> path;
     vector<pair<int, int>> neighbors;
     int n = grid.size(), m = grid[0].size();
                                                 
@@ -20,7 +19,7 @@ vector<pair<int, int>> Dijkstra::findPath(const vector<vector<int>>& grid,
     vector<vector<pair<int, int>>> parent(n, vector<pair<int, int>>(m, {-1,-1})); // Store parent to reconstruct path
     vector<vector<bool>> visited(n, vector<bool>(m, false)); // Visited array
     // Initialize distance for start node, unweighted grid so all possible moves will have same cost
-    dist[start.first][start.second] =  0; // set as 0 because the first cell of grid can be an obstacle
+    dist[start.first][start.second] =  0; // set as 0 cost to reach start node
     
     // Priority queue for Dijkstra's algorithm
     priority_queue<Node, vector<Node>, greater<Node>> prioQueue;
@@ -57,5 +56,5 @@ vector<pair<int, int>> Dijkstra::findPath(const vector<vector<int>>& grid,
         }
     }
 
-    return path = pathValidation(dist, parent, start, goal);
+    return pathValidation(dist, parent, start, goal);
 }

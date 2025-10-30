@@ -9,7 +9,6 @@
 using namespace std;
 
 vector<pair<int, int>> BFS::findPath(const vector<vector<int>>& grid, pair<int, int> start, pair<int, int> goal) {
-    vector<pair<int, int>> path;
     vector<pair<int, int>> neighbors;
     int n = grid.size(), m = grid[0].size();
 
@@ -43,5 +42,5 @@ vector<pair<int, int>> BFS::findPath(const vector<vector<int>>& grid, pair<int, 
         }
     }
     
-    return path = pathValidation(dist, parent, start, goal);
+    return pathValidation(dist, parent, start, goal);
 }

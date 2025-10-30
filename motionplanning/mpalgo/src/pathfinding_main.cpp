@@ -10,6 +10,7 @@
 #include "bfs.hpp"
 #include "dfs.hpp"
 #include "dijkstra.hpp"
+#include "astar.hpp"
 
 using namespace std;
 
@@ -21,8 +22,7 @@ unique_ptr<PathFindingAlgorithm> PathFindingAlgorithm::selectAlgorithm(const str
     } else if (algo == "DFS") {
         return make_unique<DFS>(grid, start, goal, algo);
     } else if (algo == "A*") {
-        //return make_unique<AStar>(grid, start, goal, algo);
-        cout << "A* algorithm is not supported yet." << endl;
+        return make_unique<AStar>(grid, start, goal, algo);
     } else if (algo == "Dijkstra") {
         return make_unique<Dijkstra>(grid, start, goal, algo);
     } else if (algo == "RRT") {
