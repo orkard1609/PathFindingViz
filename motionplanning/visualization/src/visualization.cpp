@@ -165,8 +165,10 @@ Visualizer::Visualizer(Grid& grid, Obstacle& obstacle)
 }
 
 /*
+    - This method helps to:
     - Display  the grid
     - Display interactive control buttons and input boxes
+    - Display visited nodes and found path during visualization
 */
 void Visualizer::displayWindows() {
     // Display the grid, clear the window with white color
@@ -209,6 +211,40 @@ void Visualizer::displayWindows() {
         }
         drawControlButton(button.x, button.y, button.width, button.height, button.boxLabel, button.boxType);
     }
+
+    // Display visited nodes and found path
+    if (isVisualizing_ && isPathDisplaying_) {
+        // Process visited nodes gradually
+        if (!visitedNodes_.empty() && visitedNodeIndex_ < visitedNodes_.size()) {
+            if (visualizationClock_.getElapsedTime().asMilliseconds() >= 10) { // Adjust this delay as needed
+                const auto& node = visitedNodes_[visitedNodeIndex_];
+                // Redundant check to avoid overwriting start/goal cells
+                if (node != selectedStartGoal_[0] && node != selectedStartGoal_[1]) {
+                    grid_.setCellState(node.first, node.second, Grid::VISITED);
+                }
+                visitedNodeIndex_++;
+                visualizationClock_.restart();
+            }
+        }
+        // Once visited nodes are done, start showing the path
+        else if (!path_.empty() && pathNodeIndex_ < path_.size()) {
+            if (visualizationClock_.getElapsedTime().asMilliseconds() >= 20) { // Slower delay for path
+                const auto& p = path_[pathNodeIndex_];
+                // Redundant check to avoid overwriting start/goal cells
+                if (p != selectedStartGoal_[0] && p != selectedStartGoal_[1]) {
+                    grid_.setCellState(p.first, p.second, Grid::PATH);
+                }
+                pathNodeIndex_++;
+                visualizationClock_.restart();
+            }
+        }
+        // Stop visualization when complete
+        else if (visitedNodeIndex_ >= visitedNodes_.size() && pathNodeIndex_ >= path_.size()) {
+            isVisualizing_ = false;
+            cout << "Path visualization complete!" << endl;
+        }
+    }
+
     // Display the windows, including grid, control buttons and input boxes
     window_.display();
 }
@@ -475,34 +511,21 @@ void Visualizer::handlePathPlanningAlgo() {
     
     if (!selectedAlgo_.empty() && selectedStartGoal_.size() == 2) {
         isPathDisplaying_ = true;
-        
         // Get the pathfinding algorithm instance
         auto pathFinding = PathFindingAlgorithm::selectAlgorithm(selectedAlgo_, grid_, selectedStartGoal_[0], selectedStartGoal_[1]);
-        
         // Only proceed if we have a valid algorithm
         if (pathFinding) {
             // Get the path from the algorithm
             path_ = pathFinding->getFoundPath();
             visitedNodes_ = pathFinding->getVisitedNodes();
-            // Display visited nodes first
-            if (!visitedNodes_.empty()) {
-                for (const auto& node : visitedNodes_) {
-                    // Mark cells as VISITED
-                    if (node != selectedStartGoal_[0] && node != selectedStartGoal_[1]) {
-                        grid_.setCellState(node.first, node.second, Grid::VISITED);
-                    }
-                }
-                cout << endl;
-            }
-            // Display the path if it's not empty
-            if (!path_.empty()) {
-                for (const auto& p : path_) {
-                    // Mark cells as PATH
-                    if (p != selectedStartGoal_[0] && p != selectedStartGoal_[1]) {
-                        grid_.setCellState(p.first, p.second, Grid::PATH);
-                    }
-                }
-                cout << endl;
+            // Ensure both visited nodes and path are available
+            if (!visitedNodes_.empty() && !path_.empty()) {
+                // Reset visualization state
+                visitedNodeIndex_ = 0;
+                pathNodeIndex_ = 0;
+                visualizationClock_.restart();
+                isVisualizing_ = true;
+                cout << "Starting visualization..." << endl;
             } else {
                 cout << "No path found between start and goal points." << endl;
                 isPathDisplaying_ = false;
@@ -511,8 +534,7 @@ void Visualizer::handlePathPlanningAlgo() {
             cout << "Failed to initialize pathfinding algorithm." << endl;
             isPathDisplaying_ = false;
         }
-    }
-    else {
+    } else {
         cout << "Please select Start and Goal position first!" << endl;
         isPathDisplaying_ = false;
     }
@@ -598,12 +620,12 @@ void Visualizer::resetWindows() {
     }
     
     // Then randomly setting obstacles for testing - FOR TESTING ONLY
-    /*srand(static_cast<unsigned int>(time(0)));
-    for (int i = 0; i < 2500; ++i) {
+    srand(static_cast<unsigned int>(time(0)));
+    for (int i = 0; i < (grid_.getWidth()*grid_.getHeight()/4); ++i) {
         int x = rand() % grid_.getWidth();
         int y = rand() % grid_.getHeight();
         grid_.setCellState(x, y, Grid::OBSTACLE);
-    }*/
+    }
 
     // Set all attributes back to init state
     obstacleStack_.clear();
@@ -612,7 +634,10 @@ void Visualizer::resetWindows() {
     visitedNodes_.clear();
     isObstacleSet_ = false;
     isStartGoalSet_ = false;
-    isPathDisplaying_ = false; // Reset path display state
+    isPathDisplaying_ = false;
+    isVisualizing_ = false;
+    visitedNodeIndex_ = 0;
+    pathNodeIndex_ = 0; // Reset path display state
     selectedAlgo_ = "Dijkstra";
     buttons_["inputX"].boxLabel = to_string(grid_.getWidth());
     buttons_["inputY"].boxLabel = to_string(grid_.getHeight());

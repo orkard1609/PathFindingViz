@@ -25,9 +25,6 @@ unique_ptr<PathFindingAlgorithm> PathFindingAlgorithm::selectAlgorithm(const str
         return make_unique<AStar>(grid, start, goal, algo);
     } else if (algo == "Dijkstra") {
         return make_unique<Dijkstra>(grid, start, goal, algo);
-    } else if (algo == "RRT") {
-        //return make_unique<RRT>(grid, start, goal, algo);
-        cout << "RRT algorithm is not supported yet." << endl;
     } else {
         // Fallback for unrecognized algorithm
         cout << "Algorithm " << algo << " is not recognized." << endl;
@@ -39,8 +36,7 @@ unique_ptr<PathFindingAlgorithm> PathFindingAlgorithm::selectAlgorithm(const str
 vector<pair<int, int>> PathFindingAlgorithm::goalDirectionCalc(pair<int, int> start, pair<int, int> goal) const {
     /*
     ### Improvement for DFS
-    Idea: Calculate the direction vector from start to goal
-            Use this vector to prioritize neighbor exploration order
+    Calculate the direction vector from start to goal, use this vector to prioritize neighbor exploration order
     As we only have 4 directions (up, down, left, right) so we can just decide the direction based on 4 quadrant
     If angle is between:
         -45 to 45 degrees: prioritize right

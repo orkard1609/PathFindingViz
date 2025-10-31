@@ -18,7 +18,7 @@ using namespace std;
 
 class PathFindingAlgorithm {
     private:
-        vector<string> algorithms = {"A*", "Dijkstra", "BFS", "DFS", "RRT"}; // List of supported algorithms
+        vector<string> algorithms = {"A*", "Dijkstra", "BFS", "DFS"}; // List of supported algorithms
         string selectedAlgo_ = "Dijkstra"; // Default algorithm
     protected:    
         Grid& grid_;

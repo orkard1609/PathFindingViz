@@ -40,7 +40,7 @@ class Visualizer {
         vector<pair<int, int>> obstacleStack_; // Store obstacle positions
         string clickedButton; // Global clicked button state
         vector<pair<int, int>> clickedCell; // Global clicked cell state
-        int cellSize_ = 30; // Size of each cell in pixels
+        int cellSize_ = 600/grid_.getWidth(); // Size of each cell in pixels
         unsigned int gridWidth_, gridHeight_;  // Store grid width and height in pixels
         int gridOffsetX_ = 0; // X offset for grid positioning
         int gridOffsetY_ = 0; // Y offset for grid positioning
@@ -57,7 +57,7 @@ class Visualizer {
         bool cursorVisible_ = true; // Current state of cursor visibility
         string inputBoxTextX_ = ""; // Text currently in the active input box X
         string inputBoxTextY_ = ""; // Text currently in the active input box Y
-        vector<string> algorithms = {"A*", "Dijkstra", "BFS", "DFS", "RRT"}; // <= Will be moved to algorithm class
+        vector<string> algorithms = {"A*", "Dijkstra", "BFS", "DFS"}; // <= Will be moved to algorithm class
         string selectedAlgo_ = "Dijkstra"; // Init algorithm from dropdown;
         bool isAlgoDropdownOpen_ = false; // Track if algorithm dropdown is open
         bool clickedOutside_ = false; // Track if user clicked outside dropdown list
@@ -69,6 +69,11 @@ class Visualizer {
         bool isPathDisplaying_ = false; // Track if path is displaying
         vector<pair<int, int>> path_ = {}; // Store found path for visualization
         vector<pair<int, int>> visitedNodes_ = {}; // Store visited nodes for visualization
+        // Visualization state
+        size_t visitedNodeIndex_ = 0;
+        size_t pathNodeIndex_ = 0;
+        sf::Clock visualizationClock_;
+        bool isVisualizing_ = false;
     public:
         // Constructor to initialize visualizer with grid and obstacle
         Visualizer(Grid& grid, Obstacle& obstacle);
