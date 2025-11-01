@@ -25,9 +25,17 @@ The following algorithms have been implemented:
 
 ## 3. Visualization Results
 
+*Visualization showing pathfinding algorithms in action with obstacle avoidance*
+
 ![Path Finding Visualization](motionplanning/doc/gif/MAP_1.gif)
 
-*Interactive visualization showing pathfinding algorithms in action with obstacle avoidance*
+*In some cases, DFS can find an optimal result with goal-directed exploration*
+
+![DFS Optimal Path](motionplanning/doc/gif/MAP_2_P1.gif)
+
+*But in some other cases, DFS can also bring a very suboptimal result due to its depth-first nature*
+
+![DFS Suboptimal Path](motionplanning/doc/gif/MAP_2_P2.gif)
 
 ## 4. Architectural Design
 
