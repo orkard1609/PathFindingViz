@@ -578,14 +578,6 @@ void Visualizer::resetWindows() {
         }
     }
     
-    // Then randomly setting obstacles for testing - FOR TESTING ONLY
-    srand(static_cast<unsigned int>(time(0)));
-    for (int i = 0; i < (grid_.getWidth()*grid_.getHeight()/4); ++i) {
-        int x = rand() % grid_.getWidth();
-        int y = rand() % grid_.getHeight();
-        grid_.setCellState(x, y, Grid::OBSTACLE);
-    }
-
     // Set all attributes back to init state
     obstacleStack_.clear();
     selectedStartGoal_.clear();
