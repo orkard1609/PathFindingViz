@@ -45,7 +45,7 @@ The project follows a modular architecture with clear separation of concerns:
 
 ```
 motionplanning/
-├── mpalgo/                              # Algorithm implementations
+├── pathfinding/                         # Algorithm implementations
 │   ├── searching_based_planning/        # Graph-based search algorithms
 │   │   ├── astar/                       # A* algorithm
 │   │   ├── bfs/                         # Breadth-First Search
@@ -72,16 +72,18 @@ motionplanning/
 
 **Component Descriptions:**
 
-- **mpalgo/**: Contains all pathfinding algorithm implementations
+- **pathfinding/**: Contains all pathfinding algorithm implementations
   - **searching_based_planning/**: Graph-based search algorithms with base class architecture
     - Each algorithm (A*, BFS, DFS, Dijkstra) inherits from `PathFindingAlgorithm` base class
     - Common functionality (path validation, neighbor search) shared through inheritance
   - **sampling_based_planning/**: Future expansion for sampling-based methods
 
 - **visualization/**: Interactive SFML-based visualization system
-  - **Grid**: Manages 2D grid environment with cell states (empty, obstacle, start, goal, path, visited)
-  - **Obstacle**: Handles obstacle placement and removal with undo functionality
-  - **Visualizer**: Main interface with user controls, algorithm selection, and path animation
+  - **searching_based_visualization/**: Visualization for graph-based search algorithms
+    - **Grid**: Manages 2D grid environment with cell states (empty, obstacle, start, goal, path, visited)
+    - **Obstacle**: Handles obstacle placement and removal with undo functionality
+    - **Visualizer**: Main interface with user controls, algorithm selection, and path animation
+  - **sampling_based_visualization/**: Future expansion for sampling-based algorithm visualization
 
 ### 4.2 Key Features
 - Modular algorithm implementation
