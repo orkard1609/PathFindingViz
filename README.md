@@ -27,15 +27,15 @@ The following algorithms have been implemented:
 
 *Visualization showing pathfinding algorithms in action with obstacle avoidance*
 
-![Path Finding Visualization](motionplanning/doc/gif/MAP_1.gif)
+![Path Finding Visualization](doc/gif/MAP_1.gif)
 
 *In some cases, DFS can find an optimal result with goal-directed exploration*
 
-![DFS Optimal Path](motionplanning/doc/gif/MAP_2_P1.gif)
+![DFS Optimal Path](doc/gif/MAP_2_P1.gif)
 
 *But in some other cases, DFS can also bring a very suboptimal result due to its depth-first nature*
 
-![DFS Suboptimal Path](motionplanning/doc/gif/MAP_2_P2.gif)
+![DFS Suboptimal Path](doc/gif/MAP_2_P2.gif)
 
 ## 4. Architectural Design
 
@@ -44,7 +44,7 @@ The project follows a modular architecture with clear separation of concerns:
 ### 4.1 Core Components
 
 ```
-motionplanning/
+pathfindingviz/
 ├── pathfinding/                         # Algorithm implementations
 │   ├── searching_based_planning/        # Graph-based search algorithms
 │   │   ├── astar/                       # A* algorithm
@@ -104,32 +104,31 @@ motionplanning/
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/orkard1609/mpc.git
-cd mpc
+git clone https://github.com/orkard1609/PathFindingViz.git
+cd PathFindingViz
 ```
 
 2. Create build directory:
 ```bash
-cd motionplanning
 mkdir build
 cd build
 ```
 
 3. Configure with CMake:
 ```bash
-cmake ..
+cmake -S . -B build -G "MinGW Makefiles"
 ```
 
 4. Build the project:
 ```bash
-make
+mingw32-make
 ```
 
 ### Running the Application
 
 1. From the build directory:
 ```bash
-./MotionPlanning
+./PathFindingViz
 ```
 
 2. Using the Interface:

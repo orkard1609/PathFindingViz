@@ -2,7 +2,7 @@
 cmake_minimum_required(VERSION 3.10)
 
 # Project name definition
-project(MotionPlanning)
+project(PathFindingViz)
 
 # Set C++17 as the C++ standard for our project
 set(CMAKE_CXX_STANDARD 17)
@@ -22,7 +22,7 @@ set(SFML_LIB_DIR "F:/SFML-3.0.0/build/lib")
 add_definitions(-DSFML_STATIC)
 
 # Define the executable target with all source files
-add_executable(MotionPlanning 
+add_executable(PathFindingViz 
     main.cpp
     visualization/searching_based_visualization/src/grid.cpp
     visualization/searching_based_visualization/src/obstacle.cpp
@@ -35,7 +35,7 @@ add_executable(MotionPlanning
 )
 
 # Add include directories
-target_include_directories(MotionPlanning PRIVATE 
+target_include_directories(PathFindingViz PRIVATE 
     ${SFML_INCLUDE_DIR}
     visualization/searching_based_visualization/include
     pathfinding/searching_based_planning/include
@@ -47,7 +47,7 @@ target_include_directories(MotionPlanning PRIVATE
 
 # Link SFML static libraries - use -s.a versions if available
 # Note the order matters for static linking
-target_link_libraries(MotionPlanning PRIVATE 
+target_link_libraries(PathFindingViz PRIVATE 
     ${SFML_LIB_DIR}/libsfml-graphics-s.a
     ${SFML_LIB_DIR}/libsfml-window-s.a
     ${SFML_LIB_DIR}/libsfml-system-s.a
@@ -55,7 +55,7 @@ target_link_libraries(MotionPlanning PRIVATE
 
 # SFML static libraries require additional dependencies
 if(WIN32)
-    target_link_libraries(MotionPlanning PRIVATE 
+    target_link_libraries(PathFindingViz PRIVATE 
         opengl32        # OpenGL - required for graphics
         freetype        # Font rendering - required for text
         winmm           # Windows multimedia - required by SFML core
